@@ -1,22 +1,55 @@
 import { useState } from "react";
 import Switch from "react-switch";
+import { format, parseISO } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
-const Payment = () => {
-  const [paidOut, setPaidOut] = useState(false);
+import { usePaymentContext } from "../contexts/PaymentContext";
+
+type PaymentType = {
+  id: number;
+  description: string;
+  price: number;
+  deadline: string;
+  paidOut: boolean;
+};
+
+type PaymentProps = {
+  data: PaymentType;
+};
+
+const Payment = ({ data }: PaymentProps) => {
+  const [paidOut, setPaidOut] = useState<boolean>(data.paidOut);
+
+  const { removePayment, setPaid } = usePaymentContext();
 
   function handleSwitch() {
+    setPaid(data.id, !paidOut);
     setPaidOut(!paidOut);
+  }
+
+  function handleRemovePayment() {
+    if (window.confirm("Tem certeza que deseja excluir este pagamento?")) {
+      removePayment(data.id);
+    }
   }
 
   return (
     <tr
-      className={`bg-white shadow-sm dark:bg-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-600 ${
-        paidOut && "opacity-60 hover:bg-white dark:hover:bg-gray-700"
-      }`}
+      className={`bg-white shadow-sm 
+      dark:bg-gray-700 text-gray-500 dark:text-gray-400 
+      hover:bg-gray-50 dark:hover:bg-gray-600 
+      ${paidOut && "opacity-60 hover:bg-white dark:hover:bg-gray-700"}`}
     >
-      <td className="py-5 px-6 rounded-l">Luz</td>
-      <td className="py-3 px-6">R$ 300,00</td>
-      <td className="py-3 px-6">30/07/2021</td>
+      <td className="py-5 px-6 rounded-l">{data.description}</td>
+      <td className="py-3 px-6">
+        {data.price.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}
+      </td>
+      <td className="py-3 px-6">
+        {format(parseISO(data.deadline), "d MMM yyyy", { locale: ptBR })}
+      </td>
       <td className="py-3 px-6 rounded-r">
         <div className="flex items-center justify-between">
           <Switch
@@ -30,7 +63,10 @@ const Payment = () => {
             onHandleColor="#eee"
             offHandleColor="#eee"
           />
-          <button className="flex items-center ml-5">
+          <button
+            className="flex items-center ml-5"
+            onClick={handleRemovePayment}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 text-red-400"
