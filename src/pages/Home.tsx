@@ -43,7 +43,7 @@ const Home = () => {
                           text-gray-400 dark:text-gray-400"
               >
                 <td className="py-3 px-6 rounded-l">Descrição</td>
-                <td className="py-3 px-6">Valor</td>
+                <td className="py-3 px-6">Valor (R$)</td>
                 <td className="py-3 px-6">Vencimento</td>
                 <td className="py-3 px-6 rounded-r"></td>
               </tr>

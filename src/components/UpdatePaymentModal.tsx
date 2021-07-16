@@ -14,12 +14,25 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-type NewPaymentModalProps = {
-  modalIsOpen: boolean;
-  closeModal: () => void;
+type Payment = {
+  id: number;
+  description: string;
+  price: number;
+  deadline: string;
+  paidOut: boolean;
 };
 
-const NewPaymentModal = ({ modalIsOpen, closeModal }: NewPaymentModalProps) => {
+type UpdatePaymentModalProps = {
+  modalIsOpen: boolean;
+  closeModal: () => void;
+  payment: Payment | null;
+};
+
+const UpdatePaymentModal = ({
+  modalIsOpen,
+  closeModal,
+  payment,
+}: UpdatePaymentModalProps) => {
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -31,12 +44,12 @@ const NewPaymentModal = ({ modalIsOpen, closeModal }: NewPaymentModalProps) => {
     >
       <div className="w-full flex flex-col">
         <h2 className="text-green-500 font-bold text-lg mb-5 pb-1">
-          Cadastrar novo pagamento
+          Atualizar pagamento
         </h2>
-        <PaymentForm closeModal={closeModal} />
+        <PaymentForm closeModal={closeModal} payment={payment} />
       </div>
     </Modal>
   );
 };
 
-export default NewPaymentModal;
+export default UpdatePaymentModal;

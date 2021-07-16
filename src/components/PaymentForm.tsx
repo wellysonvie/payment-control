@@ -1,8 +1,17 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { usePaymentContext } from "../contexts/PaymentContext";
 
-type NewPaymentFormProps = {
+type Payment = {
+  id: number;
+  description: string;
+  price: number;
+  deadline: string;
+  paidOut: boolean;
+};
+
+type PaymentFormProps = {
   closeModal: () => void;
+  payment?: Payment | null;
 };
 
 type Inputs = {
@@ -11,21 +20,30 @@ type Inputs = {
   deadline: string;
 };
 
-const NewPaymentModalForm = ({ closeModal }: NewPaymentFormProps) => {
+const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { addPayment } = usePaymentContext();
+  const { addPayment, updatePayment, formatPriceInBRL } = usePaymentContext();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    addPayment(
-      data.description,
-      Number(data.price.replace(".", "").replace(",", ".")),
-      data.deadline
-    );
+    if (!payment) {
+      addPayment(
+        data.description,
+        Number(data.price.replace(".", "").replace(",", ".")),
+        data.deadline
+      );
+    } else {
+      updatePayment(payment.id, {
+        ...payment,
+        description: data.description,
+        price: Number(data.price.replace(".", "").replace(",", ".")),
+        deadline: data.deadline,
+      });
+    }
     closeModal();
   };
 
@@ -39,6 +57,7 @@ const NewPaymentModalForm = ({ closeModal }: NewPaymentFormProps) => {
             text-gray-600 dark:text-gray-400 rounded 
             ${errors.description && "border-red-400 dark:border-red-400"}`}
         {...register("description", { required: true })}
+        defaultValue={payment?.description}
       />
       {errors.description && (
         <span className="font-light text-sm text-red-400">
@@ -57,6 +76,7 @@ const NewPaymentModalForm = ({ closeModal }: NewPaymentFormProps) => {
           required: true,
           pattern: /^(\d{1,3}(\.\d{3})*|\d+)(,\d{2})?$/,
         })}
+        defaultValue={payment?.price && formatPriceInBRL(payment?.price)}
       />
       {errors.price && (
         <span className="font-light text-sm text-red-400">
@@ -73,6 +93,7 @@ const NewPaymentModalForm = ({ closeModal }: NewPaymentFormProps) => {
             text-gray-600 dark:text-gray-400 rounded 
             ${errors.deadline && "border-red-400 dark:border-red-400"}`}
         {...register("deadline", { required: true })}
+        defaultValue={payment?.deadline}
       />
       {errors.deadline && (
         <span className="font-light text-sm text-red-400">
@@ -122,4 +143,4 @@ const NewPaymentModalForm = ({ closeModal }: NewPaymentFormProps) => {
   );
 };
 
-export default NewPaymentModalForm;
+export default PaymentModalForm;
