@@ -36,6 +36,26 @@ const Payment = ({ data }: PaymentProps) => {
     }
   }
 
+  function statusColor(): string {
+    if (
+      Date.now() > new Date(`${data.deadline} 23:59:59`).getTime() &&
+      !data.paidOut
+    ) {
+      return "text-red-400";
+    }
+
+    const days = 86400000 * 3; // 3 days
+
+    if (
+      new Date(`${data.deadline} 23:59:59`).getTime() - days <= Date.now() &&
+      !data.paidOut
+    ) {
+      return "text-yellow-500";
+    }
+
+    return "";
+  }
+
   return (
     <>
       <tr
@@ -46,7 +66,7 @@ const Payment = ({ data }: PaymentProps) => {
       >
         <td className="py-5 px-6 rounded-l">{data.description}</td>
         <td className="py-3 px-6">{formatPriceInBRL(data.price)}</td>
-        <td className="py-3 px-6">
+        <td className={`py-3 px-6 ${statusColor()}`}>
           {format(parseISO(data.deadline), "d MMM yyyy", { locale: ptBR })}
         </td>
         <td className="py-3 px-6 rounded-r">
