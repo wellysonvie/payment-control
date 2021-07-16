@@ -1,5 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+
 import { usePaymentContext } from "../contexts/PaymentContext";
+import useToast from "../hooks/useToast";
 
 type Payment = {
   id: number;
@@ -29,6 +31,8 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
 
   const { addPayment, updatePayment, formatPriceInBRL } = usePaymentContext();
 
+  const [ToastContainer, showMessage] = useToast();
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (!payment) {
       addPayment(
@@ -36,6 +40,8 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
         Number(data.price.replace(".", "").replace(",", ".")),
         data.deadline
       );
+
+      showMessage("Pagamento adicionado.");
     } else {
       updatePayment(payment.id, {
         ...payment,
@@ -43,7 +49,10 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
         price: Number(data.price.replace(".", "").replace(",", ".")),
         deadline: data.deadline,
       });
+
+      showMessage("Pagamento atualizado.");
     }
+
     closeModal();
   };
 
@@ -139,6 +148,7 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
           Salvar
         </button>
       </div>
+      <ToastContainer />
     </form>
   );
 };

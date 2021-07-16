@@ -5,6 +5,7 @@ import ptBR from "date-fns/locale/pt-BR";
 
 import { usePaymentContext } from "../contexts/PaymentContext";
 import UpdatePaymentModal from "./UpdatePaymentModal";
+import useToast from "../hooks/useToast";
 
 type PaymentType = {
   id: number;
@@ -25,14 +26,23 @@ const Payment = ({ data }: PaymentProps) => {
 
   const { removePayment, setPaid, formatPriceInBRL } = usePaymentContext();
 
+  const [ToastContainer, showMessage] = useToast();
+
   function handleSwitch() {
     setPaid(data.id, !paidOut);
+
+    if (!paidOut) {
+      showMessage("Pagamento finalizado");
+    }
+
     setPaidOut(!paidOut);
   }
 
   function handleRemovePayment() {
     if (window.confirm("Tem certeza que deseja excluir este pagamento?")) {
       removePayment(data.id);
+
+      showMessage("Pagamento excluído");
     }
   }
 
@@ -121,6 +131,7 @@ const Payment = ({ data }: PaymentProps) => {
               </svg>
             </button>
           </div>
+          <ToastContainer />
         </td>
       </tr>
       <UpdatePaymentModal
