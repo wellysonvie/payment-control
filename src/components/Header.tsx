@@ -11,7 +11,7 @@ const Header = () => {
           <ChangeThemeButton />
           <p className="text-base text-white dark:text-green-500 ml-4">
             Bem vindo, <br className="block sm:hidden" />
-            <span className="font-medium">Wellyson</span>
+            <span className="font-medium">Fulano</span>
           </p>
         </div>
       </div>
