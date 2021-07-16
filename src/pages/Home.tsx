@@ -50,9 +50,19 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-                {payments.map((payment) => (
-                  <Payment key={payment.id} data={payment} />
-                ))}
+                {[...payments]
+                  .sort(
+                    (a, b) =>
+                      new Date(b.deadline).getTime() -
+                      new Date(a.deadline).getTime()
+                  )
+                  .sort((a, b) => {
+                    if (a.paidOut) return 1;
+                    return -1;
+                  })
+                  .map((payment) => (
+                    <Payment key={payment.id} data={payment} />
+                  ))}
               </tbody>
             </table>
           </div>

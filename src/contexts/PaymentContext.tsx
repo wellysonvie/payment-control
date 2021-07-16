@@ -49,23 +49,18 @@ export const PaymentProvider = ({ children }: PaymentProviderProps) => {
       );
     }
 
-    setPayments((payments) => [
+    setPayments([
       ...payments,
       { id: generateID(), description, price, deadline, paidOut: false },
     ]);
-
-    reorderPayments();
   }
 
   function removePayment(paymentId: number) {
-    setPayments((payments) =>
-      payments.filter((payment) => payment.id !== paymentId)
-    );
-    reorderPayments();
+    setPayments(payments.filter((payment) => payment.id !== paymentId));
   }
 
   function updatePayment(paymentId: number, newValue: Payment) {
-    setPayments((payments) =>
+    setPayments(
       payments.map((payment) => {
         if (payment.id === paymentId) {
           return newValue;
@@ -73,12 +68,10 @@ export const PaymentProvider = ({ children }: PaymentProviderProps) => {
         return payment;
       })
     );
-
-    reorderPayments();
   }
 
   function setPaid(paymentId: number, paidOut: boolean) {
-    setPayments((payments) =>
+    setPayments(
       payments.map((payment) => {
         if (payment.id === paymentId) {
           return { ...payment, paidOut };
@@ -86,28 +79,12 @@ export const PaymentProvider = ({ children }: PaymentProviderProps) => {
         return payment;
       })
     );
-
-    reorderPayments();
   }
 
   function formatPriceInBRL(price: number): string {
     return price.toLocaleString("pt-BR", {
       minimumFractionDigits: 2,
     });
-  }
-
-  function reorderPayments() {
-    setPayments((payments) =>
-      [...payments]
-        .sort(
-          (a: Payment, b: Payment) =>
-            new Date(b.deadline).getTime() - new Date(a.deadline).getTime()
-        )
-        .sort((a: Payment, b: Payment) => {
-          if (a.paidOut) return 1;
-          return -1;
-        })
-    );
   }
 
   return (
