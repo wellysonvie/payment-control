@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { usePaymentContext } from "../contexts/PaymentContext";
+import useFormatPriceInBRL from "../hooks/useFormatPriceInBRL";
 import useToast from "../hooks/useToast";
 
 type Payment = {
@@ -29,7 +30,7 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const { addPayment, updatePayment, formatPriceInBRL } = usePaymentContext();
+  const { addPayment, updatePayment } = usePaymentContext();
 
   const [ToastContainer, showMessage] = useToast();
 
@@ -85,7 +86,8 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
           required: true,
           pattern: /^(\d{1,3}(\.\d{3})*|\d+)(,\d{2})?$/,
         })}
-        defaultValue={payment?.price && formatPriceInBRL(payment?.price)}
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        defaultValue={payment?.price && useFormatPriceInBRL(payment?.price)}
       />
       {errors.price && (
         <span className="font-light text-sm text-red-400">

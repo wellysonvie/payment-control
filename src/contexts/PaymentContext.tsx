@@ -20,7 +20,6 @@ type PaymentContextType = {
   removePayment: (paymentId: number) => void;
   updatePayment: (paymentId: number, newValue: Payment) => void;
   setPaid: (paymentId: number, paidOut: boolean) => void;
-  formatPriceInBRL: (price: number) => string;
 };
 
 type PaymentProviderProps = {
@@ -81,12 +80,6 @@ export const PaymentProvider = ({ children }: PaymentProviderProps) => {
     );
   }
 
-  function formatPriceInBRL(price: number): string {
-    return price.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-    });
-  }
-
   return (
     <PaymentContext.Provider
       value={{
@@ -95,7 +88,6 @@ export const PaymentProvider = ({ children }: PaymentProviderProps) => {
         removePayment,
         updatePayment,
         setPaid,
-        formatPriceInBRL,
       }}
     >
       {children}

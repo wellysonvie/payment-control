@@ -6,6 +6,7 @@ import ptBR from "date-fns/locale/pt-BR";
 import { usePaymentContext } from "../contexts/PaymentContext";
 import UpdatePaymentModal from "./UpdatePaymentModal";
 import useToast from "../hooks/useToast";
+import useFormatPriceInBRL from "../hooks/useFormatPriceInBRL";
 
 type PaymentType = {
   id: number;
@@ -24,7 +25,7 @@ const Payment = ({ data }: PaymentProps) => {
   const [updatePaymentModalIsOpen, setUpdatePaymentModalIsOpen] =
     useState<boolean>(false);
 
-  const { removePayment, setPaid, formatPriceInBRL } = usePaymentContext();
+  const { removePayment, setPaid } = usePaymentContext();
 
   const [ToastContainer, showMessage] = useToast();
 
@@ -75,7 +76,7 @@ const Payment = ({ data }: PaymentProps) => {
       ${paidOut && "opacity-60 hover:bg-white dark:hover:bg-gray-700"}`}
       >
         <td className="py-5 px-6 rounded-l">{data.description}</td>
-        <td className="py-3 px-6">{formatPriceInBRL(data.price)}</td>
+        <td className="py-3 px-6">{useFormatPriceInBRL(data.price)}</td>
         <td className={`py-3 px-6 whitespace-nowrap ${statusColor()}`}>
           {format(parseISO(data.deadline), "d MMM yyyy", { locale: ptBR })}
         </td>
