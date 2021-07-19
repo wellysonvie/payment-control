@@ -18,7 +18,7 @@ const Home = () => {
   }
 
   return (
-    <main className="flex-grow pt-24 pb-20 px-5 overflow-y-auto">
+    <main className="flex-grow sm:pt-64 pt-48 pb-20 px-5 sm:overflow-hidden">
       <section className="max-w-3xl mx-auto h-full flex flex-col">
         <header
           className="pt-5 pb-3 mb-5 h-20 flex items-center justify-between 
@@ -32,7 +32,7 @@ const Home = () => {
                       hover:text-green-600 dark:hover:text-green-300"
             onClick={openModal}
           >
-            + Novo Pagamento
+            + Adicionar
           </button>
         </header>
         <div className="flex-grow overflow-hidden relative">
@@ -87,12 +87,12 @@ const Home = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M13 5l7 7-7 7M5 5l7 7-7 7"
+                    d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
                   />
                 </svg>
               </div>
               <div
-                className="absolute bottom-0 left-0 z-10 w-full h-6 
+                className="hidden sm:block absolute bottom-0 left-0 z-10 w-full h-6 
                   bg-gradient-to-b from-transparent to-gray-100 dark:to-gray-800"
               ></div>
             </>

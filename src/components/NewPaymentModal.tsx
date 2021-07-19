@@ -31,7 +31,7 @@ const NewPaymentModal = ({ modalIsOpen, closeModal }: NewPaymentModalProps) => {
     >
       <div className="w-full flex flex-col">
         <h2 className="text-green-500 font-bold text-lg mb-5 pb-1">
-          Cadastrar novo pagamento
+          Adicionar novo pagamento
         </h2>
         <PaymentForm closeModal={closeModal} />
       </div>
