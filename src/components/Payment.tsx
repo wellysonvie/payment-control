@@ -76,7 +76,7 @@ const Payment = ({ data }: PaymentProps) => {
       >
         <td className="py-5 px-6 rounded-l">{data.description}</td>
         <td className="py-3 px-6">{formatPriceInBRL(data.price)}</td>
-        <td className={`py-3 px-6 ${statusColor()}`}>
+        <td className={`py-3 px-6 whitespace-nowrap ${statusColor()}`}>
           {format(parseISO(data.deadline), "d MMM yyyy", { locale: ptBR })}
         </td>
         <td className="py-3 px-6 rounded-r">
