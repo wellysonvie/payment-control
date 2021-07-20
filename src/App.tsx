@@ -6,7 +6,7 @@ import { PaymentProvider } from "./contexts/PaymentContext";
 
 function App() {
   return (
-    <div className="bg-gray-100 flex flex-col sm:h-screen dark:bg-gray-800">
+    <div className="bg-gray-100 flex flex-col sm:h-screen min-h-screen dark:bg-gray-800">
       <PaymentProvider>
         <Header />
         <Home />
