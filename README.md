@@ -8,7 +8,7 @@ Acessar a demonstração: https://payment-control.vercel.app
   <img alt="Payment Control" src=".github/screenshot.webp" width="100%">
 </p> -->
 
-## ✨ Tecnologias
+## ⚙️ Tecnologias
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [ReactJS](https://reactjs.org/)
@@ -34,3 +34,13 @@ $ yarn start
 ```
 
 Agora você pode acessar [`http://localhost:3000`](http://localhost:3000) no navegador.
+
+Executando testes end-to-end:
+
+```bash
+# Executar testes com browser ocultado
+$ yarn cy:run
+
+# Executando com Cypress Test Runner
+$ yarn cy:open
+```
