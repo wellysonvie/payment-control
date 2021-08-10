@@ -83,6 +83,7 @@ const Payment = ({ data }: PaymentProps) => {
         <td className="py-3 px-6 rounded-r">
           <div className="flex items-center justify-end">
             <Switch
+              data-cy="switch-paid"
               onChange={handleSwitch}
               checked={paidOut}
               height={20}
@@ -94,6 +95,7 @@ const Payment = ({ data }: PaymentProps) => {
               offHandleColor="#eee"
             />
             <button
+              data-cy="btn-update-payment"
               className="flex items-center ml-5"
               onClick={() => setUpdatePaymentModalIsOpen(true)}
             >
@@ -113,6 +115,7 @@ const Payment = ({ data }: PaymentProps) => {
               </svg>
             </button>
             <button
+              data-cy="btn-delete-payment"
               className="flex items-center ml-4"
               onClick={handleRemovePayment}
             >

@@ -28,6 +28,7 @@ const Home = () => {
             Meus Pagamentos
           </h1>
           <button
+            data-cy="btn-add-new-payment"
             className="text-green-800 dark:text-green-500 
                       hover:text-green-600 dark:hover:text-green-300"
             onClick={openModal}
@@ -53,7 +54,7 @@ const Home = () => {
                       <td className="py-3 px-6 rounded-r"></td>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody data-cy="payments-list">
                     {[...payments]
                       .sort(
                         (a, b) =>

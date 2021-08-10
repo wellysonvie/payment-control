@@ -60,6 +60,7 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
   return (
     <form className="w-full flex flex-col" onSubmit={handleSubmit(onSubmit)}>
       <input
+        data-cy="input-description"
         type="text"
         placeholder="Descrição"
         className={`w-full p-3 mb-1 border border-gray-300 
@@ -76,6 +77,7 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
       )}
 
       <input
+        data-cy="input-price"
         type="text"
         placeholder="Valor (Ex: 1.234,50)"
         className={`w-full p-3 mt-3 mb-1 border border-gray-300 
@@ -98,6 +100,7 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
 
       <input
         type="date"
+        data-cy="input-deadline"
         placeholder="Vencimento"
         className={`w-full p-3 mt-3 mb-1 border border-gray-300 
             dark:border-gray-600 bg-white dark:bg-gray-700 
@@ -134,6 +137,7 @@ const PaymentModalForm = ({ closeModal, payment }: PaymentFormProps) => {
           Cancelar
         </button>
         <button
+          data-cy="btn-save-payment"
           className="
                 h-11 
                 bg-green-500 
