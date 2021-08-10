@@ -42,7 +42,7 @@ const UpdatePaymentModal = ({
       className="modal bg-gray-100 dark:bg-gray-800 w-96 p-7 rounded shadow-md"
       overlayClassName="modal-overlay"
     >
-      <div className="w-full flex flex-col">
+      <div className="w-full flex flex-col" data-cy="update-payment-modal">
         <h2 className="text-green-500 font-bold text-lg mb-5 pb-1">
           Atualizar pagamento
         </h2>
